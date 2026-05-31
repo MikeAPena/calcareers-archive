@@ -4,3 +4,7 @@ A repo that acts as an archive for (possibly) current and past job postings from
 Each listing will have it's own directory named by job code and will contain atleast 
  - the job listing and
  - duty statement
+
+---
+## filer.sh
+in order to use the filer, you must have html2txt installed.

@@ -1,0 +1,51 @@
+#!/usr/bin/env bash
+
+# save_listing.sh — save a job listing to an organized directory
+
+# ── Step 1: Prompt for listing URL ──────────────────────────────────────────
+read -rp "Listing URL: " listing_url
+
+# ── Step 2: Prompt for organization directory ────────────────────────────────
+while true; do
+    read -rp "Organization directory: " org_dir
+
+    if [[ -d "$org_dir" ]]; then
+        cd "$org_dir" || exit 1
+        break
+    else
+        echo "Directory '$org_dir' does not exist."
+        read -rp "Would you like to create it? [y/n]: " create_choice
+        case "$create_choice" in
+            y|Y)
+                mkdir -p "$org_dir"
+                echo "'$org_dir' created!"
+                cd "$org_dir" || exit 1
+                break
+                ;;
+            n|N)
+                echo "OK, let's try again."
+                continue
+                ;;
+            *)
+                echo "Please enter y or n."
+                continue
+                ;;
+        esac
+    fi
+done
+
+# ── Step 3: Prompt for job code ──────────────────────────────────────────────
+read -rp "Job code: " job_code
+mkdir -p "$job_code"
+cd "$job_code" || exit 1
+
+# ── Step 4: Fetch and save the listing ──────────────────────────────────────
+echo "Fetching listing..."
+curl -s "$listing_url" | html2text > listing.txt
+echo "listing.txt saved."
+
+# ── Step 5: Reminder and cwd ────────────────────────────────────────────────
+echo ""
+echo "Don't forget to add the duty statement in this directory :0"
+echo ""
+echo "Current directory: $(pwd)"
