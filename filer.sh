@@ -1,11 +1,16 @@
 #!/usr/bin/env bash
 
-# save_listing.sh — save a job listing to an organized directory
+# filer.sh — save a job listing to an organized directory
 
-# ── Step 1: Prompt for listing URL ──────────────────────────────────────────
-read -rp "Listing URL: " listing_url
 
-# ── Step 2: Prompt for organization directory ────────────────────────────────
+# -- Step 0: Welcome User ----------------------------------------------------
+echo "Welcome to filer, a tool that makes it easier to save and organize job listings from the calcareers website."
+
+
+# -- Step 1: Prompt for listing URL ------------------------------------------
+read -rp "Please begin by pasting the calcareers job's URL: " listing_url
+
+# -- Step 2: Prompt for organization directory --------------------------------
 while true; do
     read -rp "Organization directory: " org_dir
 
@@ -34,17 +39,17 @@ while true; do
     fi
 done
 
-# ── Step 3: Prompt for job code ──────────────────────────────────────────────
+# -- Step 3: Prompt for job code ----------------------------------------------
 read -rp "Job code: " job_code
 mkdir -p "$job_code"
 cd "$job_code" || exit 1
 
-# ── Step 4: Fetch and save the listing ──────────────────────────────────────
+# -- Step 4: Fetch and save the listing --------------------------------------
 echo "Fetching listing..."
 curl -s "$listing_url" | html2text > listing.txt
 echo "listing.txt saved."
 
-# ── Step 5: Reminder and cwd ────────────────────────────────────────────────
+# -- Step 5: Reminder and cwd ------------------------------------------------
 echo ""
 echo "Don't forget to add the duty statement in this directory :0"
 echo ""
