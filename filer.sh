@@ -12,19 +12,19 @@ read -rp "Please begin by pasting the calcareers job's URL: " listing_url
 
 # -- Step 2: Prompt for organization directory --------------------------------
 while true; do
-    read -rp "Organization directory: " org_dir
+    read -rp "Job title directory: " title_dir
 
-    if [[ -d "$org_dir" ]]; then
-        cd "$org_dir" || exit 1
+    if [[ -d "$title_dir" ]]; then
+        cd "$title_dir" || exit 1
         break
     else
-        echo "Directory '$org_dir' does not exist."
+        echo "Job title '$title_dir' does not exist."
         read -rp "Would you like to create it? [y/n]: " create_choice
         case "$create_choice" in
             y|Y)
-                mkdir -p "$org_dir"
-                echo "'$org_dir' created!"
-                cd "$org_dir" || exit 1
+                mkdir -p "$title_dir"
+                echo "'$title_dir' created!"
+                cd "$title_dir" || exit 1
                 break
                 ;;
             n|N)
